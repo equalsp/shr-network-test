@@ -1,0 +1,19 @@
+{
+	"name": "kennethleong/shr-network-test",
+	"description": "Subscribe HR Network Path Test",
+	"require": {
+		"phpunit/phpunit": "^9.4"
+	},
+	"autoload": {
+		"classmap": [
+			"tests/"
+		],
+		"files": ["helper.php"]
+	},
+	"authors": [
+		{
+			"name": "Kenneth Leong",
+			"email": "ken@agentk.com.au"
+		}
+	]
+}
