@@ -49,9 +49,20 @@ git clone https://github.com/equalsp/shr-network-test.git
 ```
 2. Execute from an the command line
 ```sh
-npm install
+php index.php
 ```
-
+3. It will then prompt you to enter a path to the CSV file. You can use the sample.csv provided by entering:
+```sh
+sample.csv
+```
+4. It will then prompt you to enter your Input Output and Latency Limit. You can run a sample test by entering:
+```sh
+A F 1000
+```
+5. The output will be displayed in your console.
+```sh
+Path not found
+```
 
 
 <!-- USAGE EXAMPLES -->
