@@ -11,7 +11,7 @@
 require_once( 'helper.php' );
 
 if ( php_sapi_name() === 'cli' ) {
-	// Ask for CSV file path
+	//	 Ask for CSV file path
 	$filepath = readline( 'Please enter your CSV file path: ' );
 
 	// Check if CSV file exists || validate CSV
@@ -55,45 +55,12 @@ if ( php_sapi_name() === 'cli' ) {
 
 	// Find network paths ending with the desired output
 	$startingDevices = find_devices_with_output( $output, $networkMap );
-
-	$returnObj = [
+	$returnObj       = [
 		'path'    => [],
 		'latency' => 0,
 	];
 
-	foreach ( $startingDevices as $value ) {
-		$device        = $networkMap[ $value ];
-		$deviceInput   = $device[0];
-		$deviceOutput  = $device[1];
-		$deviceLatency = $device['2'];
-		$returnObj     = [
-			'path'    => [],
-			'latency' => $deviceLatency,
-		];
-
-		if ( $deviceInput === $input ) {
-			array_push( $returnObj['path'], $deviceInput, $deviceOutput );
-//		$returnObj['latency'] = $deviceLatency;
-		} else {
-			$nextDevices = find_devices_with_output( $deviceInput, $networkMap );
-			$foundObj    = find_paths_with_output( $nextDevices, $returnObj, $input, $networkMap, $latencyLimit );
-
-			if ( $foundObj['path'] ) {
-				array_push( $returnObj['path'], $deviceOutput );
-				$returnObj['latency'] += $deviceLatency;
-			}
-		}
-
-		// If the latency is past the limit, then continue
-		if ( $returnObj['latency'] <= $latencyLimit ) {
-			break;
-		} else {
-			$returnObj = [
-				'path'    => [],
-				'latency' => 0,
-			];
-		}
-	}
+	$returnObj = find_paths_with_output( $startingDevices, $returnObj, $input, $networkMap, $latencyLimit );
 
 	if ( ! $returnObj['path'] ) {
 		echo 'Path not found';
@@ -104,4 +71,3 @@ if ( php_sapi_name() === 'cli' ) {
 
 	exit;
 }
-
